@@ -1,51 +1,51 @@
-let httpRequest;
-document
-  .querySelector("#submit")
-  .addEventListener("click", makeRequest);
-const searchbar = document.getElementById('searchbar')
+            const submit = document.getElementById("submit");
+            const searchbar = document.querySelector('#searchbar')
 
-const createTable = () => {
-  const response = JSON.parse(httpRequest.responseText);
-  const table = document.createElement('table')
-  const thead = document.createElement('thead');
-  const tbody = document.createElement('tbody');
-  table.appendChild(thead)
-  table.appendChild(tbody)
-  thead.appendChild(createRow(['attribute', 'value']))
-  for (const attribute in response) {
-    tbody.appendChild(createRow([attribute, response[attribute]]))
-  }
-  const placement = document.querySelector('#result')
-  placement.appendChild(table)
-}
+                      
+            const appendRow = (table, row_elements, is_head) => {
+              const row = document.createElement('tr');
+              for (elem of row_elements) {
+                console.log(elem)
+                const cell = is_head ? document.createElement('th') : document.createElement('td')
+                cell.innerHTML = `${elem}`
+                row.appendChild(cell);
+              }
+              table.appendChild(row);
+            }
+            
+            const displayData = (data) => {
+              const table = document.createElement('table');
+              appendRow(table, ['properties', 'values'], true)
+              for (attribute in data) {
+                appendRow(table, [`${attribute}`, `${data[attribute]}`], false)
+              }
+              document.getElementById('result').appendChild(table);
+            }
+            
+            const makeRequest = () => {
+                console.log('in makeRequest')
+                const httpRequest = new XMLHttpRequest();
+                if (!httpRequest) {
+                    alert('problem');
+                    return false;
+                }
+                httpRequest.onreadystatechange = () => renderProfile(httpRequest);
+                httpRequest.open('GET', 'https://api.github.com/users/' + searchbar.value)
+                httpRequest.send();
+            }
 
-function makeRequest() {
-  httpRequest = new XMLHttpRequest();
+            const renderProfile = (httpRequest) => {
+                console.log('in renderProfile')
+                if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                    if (httpRequest.status === 200) {
+                        const user_data = JSON.parse(httpRequest.responseText);
+                        displayData(user_data);
+                    } else {
+                        alert('User Not Found :(')
+                    }
+                } else {
+                    console.log(httpRequest)
+                }
+            }
 
-  if (!httpRequest) {
-    alert("Giving up :( Cannot create an XMLHTTP instance");
-  return false;
-    }
-    httpRequest.onreadystatechange = alertContents;
-    httpRequest.open("GET", "https://api.github.com/users/" + searchbar.value);
-    httpRequest.send();
-}
-
-const createRow = (contents) => {
-  const tr = document.createElement('tr')
-  for (const elem in contents) {
-    const td = document.createElement('td')
-    td.innerHTML = contents[elem];
-    tr.appendChild(td);            
-  }
-  return tr;
-}
-
-function alertContents() {
-      if (httpRequest.status === 200) {
-        createTable()
-      } else {
-        alert("User not found");
-      }
-    
-}
+            submit.addEventListener('click', makeRequest)
