@@ -25,14 +25,14 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 2vh;
+    padding: 10px;
 }
 
 #result {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100%
+    height: 95%;
 }
 
 #result-head {
@@ -44,4 +44,29 @@ body {
 #result-body {
     flex: 1;
     background-color: darkgray;
+    overflow: scroll;
+    height: 100vh;
+}
+
+#result-list > li {
+    display: inline-block;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    width: 100%;
+    border-color: #30362d;
+    border-bottom: 1px solid;
+}
+
+li > h3 {
+    margin-bottom: 4px;
+    margin-top: 0;
+}
+
+.repo-lang-updated {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+ul {
+    margin: 0;
 }
