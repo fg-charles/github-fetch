@@ -1,0 +1,43 @@
+#search {
+    overflow: hidden;
+    background-color: black;
+    top: 0;
+    left:0;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    padding: 2vh;
+}
+#result {
+    margin-top: 4vh;
+}
+
+#result {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 7vh;
+}
+
+#result-head {
+    background-color: grey;
+    height: 100vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#result-head > * {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+#follow-info > * {
+    float: left;
+    margin-right: 2vw;
+    margin-top: 0;
+}

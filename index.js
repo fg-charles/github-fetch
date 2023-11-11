@@ -19,7 +19,9 @@
               for (attribute in data) {
                 appendRow(table, [`${attribute}`, `${data[attribute]}`], false)
               }
-              document.getElementById('result').appendChild(table);
+              const placement_div = document.getElementById('result-body')
+              placement_div.innerHTML = '';
+              placement_div.appendChild(table);
             }
             
             const makeRequest = () => {
