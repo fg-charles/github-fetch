@@ -39,6 +39,8 @@ body {
     padding: 20px;
     background-color: grey;
     height: 100%;
+    max-width: 20%;
+    min-width : 10%;
 }
 
 #result-body {
